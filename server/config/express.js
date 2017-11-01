@@ -63,7 +63,7 @@ export default function(io) {
   }
 
   //API Limiters
-  if(process.env.NODE_ENV === 'production'){
+  if(process.env.NODE_ENV !== 'test'){
     app.use('/api/auth/*', authLimiter, overLimit)
     app.use('/api/*', generalLimiter, overLimit)
   }
