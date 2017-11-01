@@ -62,8 +62,11 @@ export default function(io) {
     app.use(morgan('dev'))
   }
 
-  app.use('/api/auth/*', authLimiter, overLimit)
-  app.use('/api/*', generalLimiter, overLimit)
+  //API Limiters
+  if(process.env.NODE_ENV === 'production'){
+    app.use('/api/auth/*', authLimiter, overLimit)
+    app.use('/api/*', generalLimiter, overLimit)
+  }
 
   app.use(bodyParser.urlencoded({
     extended: true
