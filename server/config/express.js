@@ -18,6 +18,7 @@ import enforceSSLMiddleware from '../lib/enforce-ssl-middleware'
 import getErrorMessage, {HttpError} from '../lib/errors'
 import seed from '../lib/seed'
 import '../models'
+import { generalLimiter, authLimiter, overLimit } from './apiLimiter'
 
 // set api delay and failure probablility for testing
 const API_DELAY = 0
@@ -60,6 +61,9 @@ export default function(io) {
   if (process.env.NODE_ENV === 'development') {
     app.use(morgan('dev'))
   }
+
+  app.use('/api/auth/*', authLimiter, overLimit)
+  app.use('/api/*', generalLimiter, overLimit)
 
   app.use(bodyParser.urlencoded({
     extended: true
