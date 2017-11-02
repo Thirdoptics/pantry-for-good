@@ -1,13 +1,13 @@
 import rateLimiter from 'express-rate-limit'
 
 export const generalLimiter = new rateLimiter({
-  windowMs: 60*1000,
+  windowMs: 1000,
   delayAfter: 0,  //delay disabled
   max: 20,
 })
 
 export const authLimiter = new rateLimiter({
-  windowMs: 60*1000,
+  windowMs: 1000,
   delayAfter: 0,  //delay disabled
   max: 5,
 })
